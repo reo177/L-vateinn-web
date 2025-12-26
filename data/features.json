@@ -1,0 +1,36 @@
+{
+  "features": [
+    {
+      "name": "NUKE",
+      "emoji": "💀",
+      "items": [
+        "Full raid execution",
+        "Ban all members",
+        "Delete all messages",
+        "Channel & role manipulation",
+        "Nickname changes"
+      ]
+    },
+    {
+      "name": "RAID",
+      "emoji": "🌐",
+      "items": [
+        "External bot raiding",
+        "API flood attacks",
+        "Form spam",
+        "DDoS attacks",
+        "Webhook attacks"
+      ]
+    },
+    {
+      "name": "StealthRaid",
+      "emoji": "🥷",
+      "items": [
+        "高度な偽装",
+        "検出回避",
+        "ステルス外部荒らし",
+        "匿名性の向上"
+      ]
+    }
+  ]
+}

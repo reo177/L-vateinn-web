@@ -1,0 +1,74 @@
+{
+  "slash": [
+    {
+      "name": "/externalraid",
+      "description": "外部荒らしを実行",
+      "danger": "high"
+    },
+    {
+      "name": "/stealthraid",
+      "description": "ステルス外部荒らしを実行",
+      "danger": "max"
+    },
+    {
+      "name": "/lævboot",
+      "description": "宣伝メッセージを送信",
+      "danger": "medium"
+    },
+    {
+      "name": "/spam",
+      "description": "カスタムメッセージスパム",
+      "danger": "medium"
+    }
+  ],
+  "prefix": [
+    {
+      "name": "!Lævateinn",
+      "description": "フルレイド実行",
+      "danger": "max",
+      "emoji": "🔴 MAX"
+    },
+    {
+      "name": "!banall",
+      "description": "全員BAN",
+      "danger": "max",
+      "emoji": "🔴 MAX"
+    },
+    {
+      "name": "!massdm [message]",
+      "description": "全員にDM送信",
+      "danger": "high",
+      "emoji": "🟠 HIGH"
+    },
+    {
+      "name": "!purgeallmessages",
+      "description": "全メッセージ削除",
+      "danger": "high",
+      "emoji": "🟠 HIGH"
+    },
+    {
+      "name": "!renamechannels",
+      "description": "全チャンネル名変更",
+      "danger": "high",
+      "emoji": "🟠 HIGH"
+    },
+    {
+      "name": "!spamchannels [count]",
+      "description": "チャンネル大量作成",
+      "danger": "high",
+      "emoji": "🟠 HIGH"
+    },
+    {
+      "name": "!spamroles [count]",
+      "description": "ロール大量作成",
+      "danger": "high",
+      "emoji": "🟠 HIGH"
+    },
+    {
+      "name": "!nickall",
+      "description": "全員ニックネーム変更",
+      "danger": "high",
+      "emoji": "🟠 HIGH"
+    }
+  ]
+}
