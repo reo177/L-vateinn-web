@@ -1,0 +1,13 @@
+{
+    "name": "Lævateinn - Discord Nuke Bot",
+    "short_name": "Lævateinn",
+    "description": "Discord Nuke Bot - Full Attack Specialized",
+    "icons": [],
+    "theme_color": "#8b0000",
+    "background_color": "#0a0a0a",
+    "display": "standalone",
+    "orientation": "portrait",
+    "start_url": "/",
+    "scope": "/"
+}
+
