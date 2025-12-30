@@ -26,12 +26,21 @@
     box-sizing: border-box;
 }
 
+html, body {
+    pointer-events: auto !important;
+    touch-action: auto !important;
+    -webkit-user-select: auto !important;
+    user-select: auto !important;
+}
+
 html {
     scroll-behavior: smooth;
-    height: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    min-height: 100%;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
     position: relative;
+    height: auto !important;
+    -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -43,14 +52,17 @@ body {
     background-attachment: fixed;
     background-size: 100% 100%, 100% 100%;
     color: #fff;
-    overflow-x: hidden;
-    overflow-y: visible;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
     min-height: 100vh;
-    height: auto;
+    height: auto !important;
     position: relative;
     width: 100%;
     max-width: 100%;
     padding-bottom: 0;
+    pointer-events: auto !important;
+    touch-action: pan-y pinch-zoom !important;
+    -webkit-overflow-scrolling: touch;
 }
 
 @keyframes backgroundPulse {
@@ -72,7 +84,7 @@ body::before {
         radial-gradient(circle at 80% 50%, rgba(139, 0, 0, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 50% 20%, rgba(255, 50, 50, 0.1) 0%, transparent 50%);
     pointer-events: none !important;
-    z-index: -2;
+    z-index: -10;
     /* Animation disabled for better performance */
     animation: none;
     opacity: 0.8;
@@ -97,7 +109,7 @@ body::after {
     background-image: 
         repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 0, 0, 0.03) 2px, rgba(255, 0, 0, 0.03) 4px);
     pointer-events: none !important;
-    z-index: -1;
+    z-index: -9;
     /* Animation disabled for better performance */
     animation: none;
     opacity: 0.6;
@@ -123,6 +135,7 @@ body::after {
     opacity: 0.3;
     /* Animation disabled for better performance */
     animation: none;
+    touch-action: none !important;
 }
 
 @keyframes crossPulse {
@@ -199,6 +212,9 @@ body::after {
     z-index: 1;
     pointer-events: none !important;
     overflow: hidden;
+    touch-action: none !important;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 /* Cursor Glow - Ensure it doesn't interfere with clicks */
@@ -255,8 +271,10 @@ body::after {
     overflow-x: hidden;
     overflow-y: visible;
     min-height: 100vh;
-    pointer-events: auto;
+    pointer-events: auto !important;
     background: transparent;
+    touch-action: auto !important;
+    isolation: isolate;
 }
 
 /* Header */
@@ -495,8 +513,17 @@ body::after {
 .header-buttons {
     margin-top: 30px;
     position: relative;
-    z-index: 1000;
-    pointer-events: auto;
+    z-index: 10000 !important;
+    pointer-events: auto !important;
+    isolation: isolate;
+}
+
+.header-buttons a,
+.header-buttons .button {
+    pointer-events: auto !important;
+    z-index: 10001 !important;
+    cursor: pointer !important;
+    position: relative !important;
 }
 
 .button-primary {
@@ -782,7 +809,7 @@ body::after {
     padding: 20px 60px;
     background: linear-gradient(45deg, #ff0000, #8b0000, #ff0000);
     background-size: 200% 200%;
-    color: #fff;
+    color: #fff !important;
     text-decoration: none;
     border-radius: 15px;
     transition: all 0.3s ease;
@@ -798,10 +825,26 @@ body::after {
     box-shadow: 
         0 8px 30px rgba(255, 0, 0, 0.6),
         inset 0 0 30px rgba(255, 255, 255, 0.15);
-    z-index: 1000;
-    cursor: pointer;
+    z-index: 10001 !important;
+    cursor: pointer !important;
     pointer-events: auto !important;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    isolation: isolate;
+}
+
+.button:hover,
+.button:active,
+.button:focus {
+    pointer-events: auto !important;
+    z-index: 10002 !important;
+}
+
+.button span {
+    pointer-events: none !important;
+    position: relative;
+    z-index: 1;
+    display: inline-block;
 }
 
 @keyframes buttonGradient {
@@ -821,11 +864,18 @@ body::after {
     background: rgba(255, 255, 255, 0.4);
     transform: translate(-50%, -50%);
     transition: width 0.8s, height 0.8s;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .button:hover::before {
     width: 400px;
     height: 400px;
+}
+
+.button span {
+    position: relative;
+    z-index: 2;
 }
 
 .button:hover {
@@ -955,127 +1005,6 @@ body::after {
 
 .contact-section strong {
     text-shadow: 0 0 10px rgba(255, 102, 102, 0.5);
-}
-
-/* Bot Status & Activity Log */
-.bot-status-container {
-    background: linear-gradient(135deg, rgba(139, 0, 0, 0.2) 0%, rgba(255, 0, 0, 0.1) 100%);
-    border: 2px solid rgba(255, 102, 102, 0.5);
-    border-radius: 15px;
-    padding: 30px;
-    margin: 30px 0;
-    box-shadow: 0 0 30px rgba(255, 102, 102, 0.3);
-}
-
-.status-indicator {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-}
-
-.status-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #ff6666;
-    box-shadow: 0 0 10px rgba(255, 102, 102, 0.8);
-    animation: pulse 2s ease-in-out infinite;
-}
-
-.status-dot.online {
-    background: #00ff00;
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
-}
-
-.status-dot.offline {
-    background: #666;
-    box-shadow: none;
-    animation: none;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.7; transform: scale(1.1); }
-}
-
-.status-text {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-    font-size: 1.2rem;
-    color: #fff;
-}
-
-.activity-log {
-    max-height: 400px;
-    overflow-y: auto;
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 10px;
-    padding: 20px;
-    font-family: 'Courier New', monospace;
-    font-size: 0.9rem;
-}
-
-.activity-log::-webkit-scrollbar {
-    width: 8px;
-}
-
-.activity-log::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-}
-
-.activity-log::-webkit-scrollbar-thumb {
-    background: rgba(255, 102, 102, 0.5);
-    border-radius: 4px;
-}
-
-.activity-log::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 102, 102, 0.7);
-}
-
-.log-entry {
-    display: flex;
-    gap: 15px;
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255, 102, 102, 0.2);
-    color: #ccc;
-    line-height: 1.6;
-}
-
-.log-entry:last-child {
-    border-bottom: none;
-}
-
-.log-time {
-    color: #ff6666;
-    font-weight: 600;
-    min-width: 80px;
-    flex-shrink: 0;
-}
-
-.log-message {
-    flex: 1;
-    word-break: break-word;
-}
-
-.log-entry.info .log-message {
-    color: #fff;
-}
-
-.log-entry.success .log-message {
-    color: #00ff00;
-}
-
-.log-entry.warning .log-message {
-    color: #ffaa00;
-}
-
-.log-entry.error .log-message {
-    color: #ff6666;
 }
 
 /* Text Reveal Animation */

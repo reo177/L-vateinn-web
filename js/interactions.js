@@ -19,11 +19,12 @@ class Interactions {
         const buttons = document.querySelectorAll('.button');
         buttons.forEach(button => {
             button.addEventListener('click', (e) => {
-                // Ripple effect
+                // Ripple effect (don't prevent default for links)
                 this.createRipple(e, button);
                 
+                // Don't prevent default - allow links to work normally
                 // Analytics or tracking can be added here
-            });
+            }, { passive: true });
         });
     }
     
@@ -169,8 +170,12 @@ interactionStyle.textContent = `
 `;
 document.head.appendChild(interactionStyle);
 
-// Initialize on DOM ready
+// Initialize on DOM ready (only once)
+let interactionsInitialized = false;
 document.addEventListener('DOMContentLoaded', () => {
-    new Interactions();
-});
+    if (!interactionsInitialized) {
+        new Interactions();
+        interactionsInitialized = true;
+    }
+}, { once: true });
 
