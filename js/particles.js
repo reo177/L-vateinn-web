@@ -77,45 +77,43 @@ class ParticleSystem {
     }
     
     animate() {
-        this.particles.forEach((particle, index) => {
-            if (particle.elapsed >= 0) {
-                // Update position
-                particle.x += particle.vx;
-                particle.y += particle.vy;
-                
-                // Update rotation
-                particle.rotation += particle.rotationSpeed;
-                
-                // Reset if off screen
-                if (particle.y < -100 || particle.x < -100 || particle.x > window.innerWidth + 100) {
-                    particle.x = Math.random() * window.innerWidth;
-                    particle.y = window.innerHeight + Math.random() * 200;
-                    particle.elapsed = 0;
-                    particle.rotation = Math.random() * 360;
+        // Throttle updates for better performance
+        const now = performance.now();
+        if (!this.lastUpdate) this.lastUpdate = now;
+        const delta = now - this.lastUpdate;
+        
+        // Update at ~30fps instead of 60fps for better performance
+        if (delta >= 33) {
+            this.particles.forEach((particle, index) => {
+                if (particle.elapsed >= 0) {
+                    // Update position
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+                    
+                    // Update rotation (less frequently)
+                    particle.rotation += particle.rotationSpeed * 0.5;
+                    
+                    // Reset if off screen
+                    if (particle.y < -100 || particle.x < -100 || particle.x > window.innerWidth + 100) {
+                        particle.x = Math.random() * window.innerWidth;
+                        particle.y = window.innerHeight + Math.random() * 200;
+                        particle.elapsed = 0;
+                        particle.rotation = Math.random() * 360;
+                    }
+                    
+                    // Update element position and rotation (use transform for GPU acceleration)
+                    particle.element.style.transform = `translate3d(${particle.x}px, ${particle.y}px, 0) rotate(${particle.rotation}deg) scale(${1 + Math.sin(particle.elapsed * 0.1) * 0.2})`;
+                    
+                    // Simplified glow effect (less frequent updates)
+                    const glowPulse = 0.7 + Math.sin(particle.elapsed * 0.3) * 0.3;
+                    particle.element.style.opacity = particle.opacity * glowPulse;
                 }
                 
-                // Update element position and rotation
-                particle.element.style.left = particle.x + 'px';
-                particle.element.style.top = particle.y + 'px';
-                particle.element.style.transform = `rotate(${particle.rotation}deg) scale(${1 + Math.sin(particle.elapsed * 0.1) * 0.2})`;
-                
-                // Dynamic glow effect
-                const glowPulse = 0.7 + Math.sin(particle.elapsed * 0.5) * 0.3;
-                particle.element.style.boxShadow = `0 0 ${15 * glowPulse}px rgba(255, 102, 102, ${glowPulse}), 0 0 ${30 * glowPulse}px rgba(255, 0, 0, ${glowPulse * 0.6})`;
-                
-                // Fade in/out with smooth transitions
-                const progress = (particle.elapsed % particle.duration) / particle.duration;
-                if (progress < 0.15) {
-                    particle.element.style.opacity = particle.opacity * (progress / 0.15);
-                } else if (progress > 0.85) {
-                    particle.element.style.opacity = particle.opacity * ((1 - progress) / 0.15);
-                } else {
-                    particle.element.style.opacity = particle.opacity;
-                }
-            }
+                particle.elapsed += delta / 1000; // Use actual delta time
+            });
             
-            particle.elapsed += 0.016; // ~60fps
-        });
+            this.lastUpdate = now;
+        }
         
         this.animationId = requestAnimationFrame(() => this.animate());
     }
@@ -154,8 +152,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(container);
     }
     
-    // Create particle system with more particles for better effect
-    const particleSystem = new ParticleSystem('particles-container', 80);
+    // Create particle system with optimized particle count for performance
+    const particleSystem = new ParticleSystem('particles-container', 30);
     
     // Handle window resize
     window.addEventListener('resize', () => {

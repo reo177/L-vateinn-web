@@ -61,37 +61,38 @@ class MouseEffects {
     }
     
     updateParallax() {
-        // Subtle parallax effect on sections
-        const sections = document.querySelectorAll('.section');
-        sections.forEach(section => {
-            const rect = section.getBoundingClientRect();
-            const centerY = rect.top + rect.height / 2;
-            const distance = (this.mouseY - centerY) / window.innerHeight;
-            const parallax = distance * 10;
-            section.style.transform = `translateY(${parallax}px)`;
-        });
+        // Disabled parallax for better performance
+        // Parallax effect causes layout thrashing and performance issues
+        return;
     }
     
     createCursorGlow() {
-        // Create cursor glow effect
+        // Create lightweight cursor glow effect with throttled updates
         const glow = document.createElement('div');
         glow.className = 'cursor-glow';
         glow.style.cssText = `
             position: fixed;
-            width: 300px;
-            height: 300px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 0, 0, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.08) 0%, transparent 70%);
             pointer-events: none;
             z-index: 9999;
-            transform: translate(-50%, -50%);
+            transform: translate3d(-50%, -50%, 0);
+            will-change: transform;
             transition: opacity 0.3s ease;
         `;
         document.body.appendChild(glow);
         
+        let lastUpdate = 0;
+        const throttleDelay = 16; // ~60fps max
+        
         document.addEventListener('mousemove', (e) => {
-            glow.style.left = e.clientX + 'px';
-            glow.style.top = e.clientY + 'px';
+            const now = performance.now();
+            if (now - lastUpdate >= throttleDelay) {
+                glow.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+                lastUpdate = now;
+            }
         });
         
         document.addEventListener('mouseenter', () => {
