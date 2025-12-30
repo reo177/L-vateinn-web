@@ -50,14 +50,15 @@ class MouseEffects {
     }
     
     init() {
-        document.addEventListener('mousemove', (e) => {
-            this.mouseX = e.clientX;
-            this.mouseY = e.clientY;
-            this.updateParallax();
-        });
+        // Disable mouse tracking for better performance
+        // document.addEventListener('mousemove', (e) => {
+        //     this.mouseX = e.clientX;
+        //     this.mouseY = e.clientY;
+        //     this.updateParallax();
+        // });
         
-        // Add cursor glow effect
-        this.createCursorGlow();
+        // Disable cursor glow for better performance
+        // this.createCursorGlow();
     }
     
     updateParallax() {
@@ -76,8 +77,8 @@ class MouseEffects {
             height: 200px;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(255, 0, 0, 0.08) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 9999;
+            pointer-events: none !important;
+            z-index: 1;
             transform: translate3d(-50%, -50%, 0);
             will-change: transform;
             transition: opacity 0.3s ease;
@@ -154,7 +155,25 @@ document.head.appendChild(style);
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     new ScrollAnimations();
-    new MouseEffects();
+    // MouseEffects disabled for better performance
+    // new MouseEffects();
+    
+    // Remove any existing cursor glow elements immediately and periodically
+    const removeCursorGlow = () => {
+        const existingGlows = document.querySelectorAll('.cursor-glow');
+        existingGlows.forEach(glow => {
+            glow.style.pointerEvents = 'none';
+            glow.style.zIndex = '-1';
+            glow.remove();
+        });
+    };
+    
+    // Remove immediately
+    removeCursorGlow();
+    
+    // Remove periodically in case it gets recreated
+    setInterval(removeCursorGlow, 1000);
+    
     // Text reveal for section titles (not logo to keep gradient effect)
     const sectionTitles = document.querySelectorAll('.section-title, .subsection-title');
     sectionTitles.forEach(title => {
