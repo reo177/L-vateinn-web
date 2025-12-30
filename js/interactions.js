@@ -23,9 +23,6 @@ class Interactions {
                 this.createRipple(e, button);
                 
                 // Analytics or tracking can be added here
-                if (button.href && button.href.includes('discord.com')) {
-                    console.log('Discord invite clicked');
-                }
             });
         });
     }

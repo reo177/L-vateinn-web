@@ -31,43 +31,45 @@ class ParticleSystem {
         
         // Random starting position
         const startX = Math.random() * window.innerWidth;
-        const startY = window.innerHeight + Math.random() * 100;
+        const startY = window.innerHeight + Math.random() * 200;
         
         // Random delay for staggered animation
-        const delay = Math.random() * 15;
+        const delay = Math.random() * 10;
         
-        // Random size variation
-        const size = 2 + Math.random() * 3;
+        // Random size variation (larger particles for better visibility)
+        const size = 3 + Math.random() * 5;
         particle.style.width = size + 'px';
         particle.style.height = size + 'px';
         
-        // Random opacity
-        const opacity = 0.4 + Math.random() * 0.6;
+        // Random opacity (brighter)
+        const opacity = 0.6 + Math.random() * 0.4;
         particle.style.opacity = opacity;
         
-        // Random horizontal movement
-        const horizontalMovement = (Math.random() - 0.5) * 200;
+        // Random horizontal movement (more dynamic)
+        const horizontalMovement = (Math.random() - 0.5) * 300;
         
         // Set initial position
         particle.style.left = startX + 'px';
         particle.style.top = startY + 'px';
         
-        // Create custom animation
-        const animationDuration = 12 + Math.random() * 8; // 12-20 seconds
-        particle.style.animation = `none`;
+        // Random glow intensity
+        const glowIntensity = 0.5 + Math.random() * 0.5;
+        particle.style.boxShadow = `0 0 ${10 * glowIntensity}px rgba(255, 102, 102, ${glowIntensity}), 0 0 ${20 * glowIntensity}px rgba(255, 0, 0, ${glowIntensity * 0.5})`;
         
         // Store particle data
         const particleData = {
             element: particle,
             x: startX,
             y: startY,
-            vx: (Math.random() - 0.5) * 0.5,
-            vy: -0.5 - Math.random() * 0.5,
+            vx: (Math.random() - 0.5) * 0.8,
+            vy: -0.8 - Math.random() * 0.7,
             size: size,
             opacity: opacity,
             delay: delay,
             elapsed: -delay,
-            duration: animationDuration
+            duration: 10 + Math.random() * 10, // 10-20 seconds
+            rotation: Math.random() * 360,
+            rotationSpeed: (Math.random() - 0.5) * 5
         };
         
         this.particles.push(particleData);
@@ -81,23 +83,32 @@ class ParticleSystem {
                 particle.x += particle.vx;
                 particle.y += particle.vy;
                 
+                // Update rotation
+                particle.rotation += particle.rotationSpeed;
+                
                 // Reset if off screen
-                if (particle.y < -50 || particle.x < -50 || particle.x > window.innerWidth + 50) {
+                if (particle.y < -100 || particle.x < -100 || particle.x > window.innerWidth + 100) {
                     particle.x = Math.random() * window.innerWidth;
-                    particle.y = window.innerHeight + Math.random() * 100;
+                    particle.y = window.innerHeight + Math.random() * 200;
                     particle.elapsed = 0;
+                    particle.rotation = Math.random() * 360;
                 }
                 
-                // Update element position
+                // Update element position and rotation
                 particle.element.style.left = particle.x + 'px';
                 particle.element.style.top = particle.y + 'px';
+                particle.element.style.transform = `rotate(${particle.rotation}deg) scale(${1 + Math.sin(particle.elapsed * 0.1) * 0.2})`;
                 
-                // Fade in/out
+                // Dynamic glow effect
+                const glowPulse = 0.7 + Math.sin(particle.elapsed * 0.5) * 0.3;
+                particle.element.style.boxShadow = `0 0 ${15 * glowPulse}px rgba(255, 102, 102, ${glowPulse}), 0 0 ${30 * glowPulse}px rgba(255, 0, 0, ${glowPulse * 0.6})`;
+                
+                // Fade in/out with smooth transitions
                 const progress = (particle.elapsed % particle.duration) / particle.duration;
-                if (progress < 0.1) {
-                    particle.element.style.opacity = particle.opacity * (progress / 0.1);
-                } else if (progress > 0.9) {
-                    particle.element.style.opacity = particle.opacity * ((1 - progress) / 0.1);
+                if (progress < 0.15) {
+                    particle.element.style.opacity = particle.opacity * (progress / 0.15);
+                } else if (progress > 0.85) {
+                    particle.element.style.opacity = particle.opacity * ((1 - progress) / 0.15);
                 } else {
                     particle.element.style.opacity = particle.opacity;
                 }
@@ -143,8 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(container);
     }
     
-    // Create particle system
-    const particleSystem = new ParticleSystem('particles-container', 60);
+    // Create particle system with more particles for better effect
+    const particleSystem = new ParticleSystem('particles-container', 80);
     
     // Handle window resize
     window.addEventListener('resize', () => {

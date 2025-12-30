@@ -17,10 +17,10 @@
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://laevateinn-bot.com/">
+    <meta property="og:url" content="https://www.lwa70d3.net/">
     <meta property="og:title" content="Lævateinn - Discord Nuke Bot | Ultimate Attack Specialized">
     <meta property="og:description" content="Lævateinn - Full Attack Specialized Discord Bot. NUKE, RAID, and StealthRaid features to dominate servers. Maximum firepower to destroy Discord servers.">
-    <meta property="og:image" content="https://laevateinn-bot.com/favicon.png">
+    <meta property="og:image" content="https://www.lwa70d3.net/favicon.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
@@ -28,10 +28,10 @@
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://laevateinn-bot.com/">
+    <meta property="twitter:url" content="https://www.lwa70d3.net/">
     <meta property="twitter:title" content="Lævateinn - Discord Nuke Bot | Ultimate Attack Specialized">
     <meta property="twitter:description" content="Lævateinn - Full Attack Specialized Discord Bot. NUKE, RAID, and StealthRaid features to dominate servers. Maximum firepower to destroy Discord servers.">
-    <meta property="twitter:image" content="https://laevateinn-bot.com/favicon.png">
+    <meta property="twitter:image" content="https://www.lwa70d3.net/favicon.png">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
@@ -53,10 +53,10 @@
 </head>
 <body>
     <!-- Particle Container -->
-    <!-- <div id="particles-container"></div> -->
+    <div id="particles-container"></div>
     
     <!-- Background Cross -->
-    <!-- <div class="inverted-cross"></div> -->
+    <div class="inverted-cross"></div>
     
     <div class="container">
         <div class="header">
@@ -162,6 +162,22 @@
             </div>
         </div>
 
+        <div class="section">
+            <h2 class="section-title">Bot Status & Activity</h2>
+            <div class="bot-status-container">
+                <div class="status-indicator">
+                    <span class="status-dot" id="statusDot"></span>
+                    <span class="status-text" id="statusText">Connecting...</span>
+                </div>
+                <div class="activity-log" id="activityLog">
+                    <div class="log-entry">
+                        <span class="log-time">--:--:--</span>
+                        <span class="log-message">Initializing bot status...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="warning-box">
             <h3>Warning</h3>
             <p style="margin: 15px 0; font-size: 1.2rem;">
@@ -179,13 +195,32 @@
         <div class="footer">
             <p style="font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: #ff6666; text-shadow: 0 0 25px rgba(255, 102, 102, 1); margin-bottom: 20px;">Lævateinn</p>
             <p style="margin-top: 15px; color: #888; font-family: 'Rajdhani', sans-serif; font-size: 1.1rem;">Discord Nuke Bot - フルアタック特化型</p>
+            
+            <div class="contact-section" style="margin-top: 40px; padding: 30px; background: rgba(0, 0, 0, 0.3); border-radius: 15px; border: 2px solid rgba(255, 102, 102, 0.3);">
+                <h3 style="color: #ff6666; font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; margin-bottom: 20px; text-align: center;">お問い合わせ・寄付のお願い</h3>
+                <p style="color: #ccc; font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; line-height: 1.8; margin-bottom: 15px; text-align: center;">
+                    お問い合わせ: <a href="mailto:oos.reodir@gmail.com" style="color: #ff6666; text-decoration: none; transition: all 0.3s ease; font-weight: 600;">oos.reodir@gmail.com</a>
+                </p>
+                <div style="margin-top: 25px; padding-top: 25px; border-top: 1px solid rgba(255, 102, 102, 0.2);">
+                    <p style="color: #ffaa00; font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 15px; text-align: center;">
+                        💰 寄付のお願い
+                    </p>
+                    <p style="color: #ddd; font-family: 'Rajdhani', sans-serif; font-size: 1rem; line-height: 1.8; text-align: center; max-width: 800px; margin: 0 auto;">
+                        このサービスを維持するため、ドメイン代やサーバー代など年間3万円以上の費用がかかっています。<br>
+                        しかし、現在のところ収益は0円のため、運営が困難な状況です。<br><br>
+                        <strong style="color: #ff6666;">1000円でも構いませんので、アマゾンギフト券を上記メールアドレスに送っていただけますと幸いです。</strong><br><br>
+                        いただいた寄付は、ドメイン更新やサーバー維持費など、サービスの継続運営のために使用させていただきます。<br>
+                        ご協力いただけると大変助かります。よろしくお願いいたします。
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- JavaScript Files -->
     <script src="js/main.js"></script>
-    <!-- <script src="js/particles.js"></script> -->
-    <!-- <script src="js/animations.js"></script> -->
+    <script src="js/particles.js"></script>
+    <script src="js/animations.js"></script>
     <script src="js/interactions.js"></script>
 </body>
 </html>

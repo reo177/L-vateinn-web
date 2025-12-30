@@ -4,22 +4,22 @@
       "name": "NUKE",
       "emoji": "💀",
       "items": [
-        "Full raid execution",
-        "Ban all members",
-        "Delete all messages",
-        "Channel & role manipulation",
-        "Nickname changes"
+        "フルレイド実行",
+        "全員BAN",
+        "全メッセージ削除",
+        "チャンネル・ロール操作",
+        "ニックネーム変更"
       ]
     },
     {
       "name": "RAID",
       "emoji": "🌐",
       "items": [
-        "External bot raiding",
-        "API flood attacks",
-        "Form spam",
-        "DDoS attacks",
-        "Webhook attacks"
+        "外部ボット荒らし",
+        "APIフラッド攻撃",
+        "フォームスパム",
+        "DDoS攻撃",
+        "Webhook攻撃"
       ]
     },
     {

@@ -28,6 +28,9 @@
 
 html {
     scroll-behavior: smooth;
+    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 body {
@@ -40,7 +43,9 @@ body {
     background-size: 100% 100%, 100% 100%;
     color: #fff;
     overflow-x: hidden;
+    overflow-y: auto;
     min-height: 100vh;
+    height: auto;
     position: relative;
     width: 100%;
     max-width: 100%;
@@ -53,7 +58,7 @@ body {
 
 /* Animated Background Layers */
 body::before {
-    display: none;
+    display: block;
     content: '';
     position: fixed;
     top: 0;
@@ -61,12 +66,13 @@ body::before {
     width: 100%;
     height: 100%;
     background: 
-        radial-gradient(circle at 20% 50%, rgba(255, 0, 0, 0.2) 0%, transparent 50%),
-        radial-gradient(circle at 80% 50%, rgba(139, 0, 0, 0.2) 0%, transparent 50%),
-        radial-gradient(circle at 50% 20%, rgba(255, 50, 50, 0.15) 0%, transparent 50%);
+        radial-gradient(circle at 20% 50%, rgba(255, 0, 0, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(139, 0, 0, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 50% 20%, rgba(255, 50, 50, 0.1) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
-    animation: backgroundShift 18s ease-in-out infinite;
+    animation: backgroundShift 20s ease-in-out infinite;
+    opacity: 0.8;
 }
 
 @keyframes backgroundShift {
@@ -77,7 +83,7 @@ body::before {
 
 /* Scanlines Effect */
 body::after {
-    display: none;
+    display: block;
     content: '';
     position: fixed;
     top: 0;
@@ -85,10 +91,11 @@ body::after {
     width: 100%;
     height: 100%;
     background-image: 
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139, 0, 0, 0.05) 2px, rgba(139, 0, 0, 0.05) 4px);
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 0, 0, 0.03) 2px, rgba(255, 0, 0, 0.03) 4px);
     pointer-events: none;
-    z-index: 0;
-    animation: scanlines 10s linear infinite;
+    z-index: 1;
+    animation: scanlines 8s linear infinite;
+    opacity: 0.6;
 }
 
 @keyframes scanlines {
@@ -98,7 +105,7 @@ body::after {
 
 /* Inverted Cross Background */
 .inverted-cross {
-    display: none;
+    display: block;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -197,17 +204,23 @@ body::after {
 
 @keyframes particleFloat {
     0% {
-        transform: translateY(100vh) translateX(0) scale(0);
+        transform: translateY(100vh) translateX(0) scale(0) rotate(0deg);
         opacity: 0;
     }
     10% {
         opacity: 1;
+        transform: translateY(90vh) translateX(20px) scale(0.8) rotate(45deg);
+    }
+    50% {
+        transform: translateY(50vh) translateX(50px) scale(1) rotate(180deg);
+        opacity: 1;
     }
     90% {
         opacity: 1;
+        transform: translateY(10vh) translateX(80px) scale(0.9) rotate(315deg);
     }
     100% {
-        transform: translateY(-100px) translateX(100px) scale(1);
+        transform: translateY(-100px) translateX(100px) scale(0) rotate(360deg);
         opacity: 0;
     }
 }
@@ -876,6 +889,194 @@ body::after {
     text-shadow: 0 0 25px rgba(255, 102, 102, 1);
     margin-bottom: 20px;
 }
+
+.footer a {
+    color: #ff6666;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.footer a:hover {
+    color: #ff3333;
+    text-shadow: 0 0 10px rgba(255, 102, 102, 0.8);
+}
+
+.footer a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #ff6666;
+    transition: width 0.3s ease;
+}
+
+.footer a:hover::after {
+    width: 100%;
+}
+
+.contact-section {
+    animation: fadeInUp 0.8s ease;
+}
+
+.contact-section h3 {
+    text-shadow: 0 0 15px rgba(255, 102, 102, 0.6);
+}
+
+.contact-section strong {
+    text-shadow: 0 0 10px rgba(255, 102, 102, 0.5);
+}
+
+/* Bot Status & Activity Log */
+.bot-status-container {
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.2) 0%, rgba(255, 0, 0, 0.1) 100%);
+    border: 2px solid rgba(255, 102, 102, 0.5);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 30px 0;
+    box-shadow: 0 0 30px rgba(255, 102, 102, 0.3);
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ff6666;
+    box-shadow: 0 0 10px rgba(255, 102, 102, 0.8);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.status-dot.online {
+    background: #00ff00;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+}
+
+.status-dot.offline {
+    background: #666;
+    box-shadow: none;
+    animation: none;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+.status-text {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.activity-log {
+    max-height: 400px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    padding: 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+}
+
+.activity-log::-webkit-scrollbar {
+    width: 8px;
+}
+
+.activity-log::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+.activity-log::-webkit-scrollbar-thumb {
+    background: rgba(255, 102, 102, 0.5);
+    border-radius: 4px;
+}
+
+.activity-log::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 102, 102, 0.7);
+}
+
+.log-entry {
+    display: flex;
+    gap: 15px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 102, 102, 0.2);
+    color: #ccc;
+    line-height: 1.6;
+}
+
+.log-entry:last-child {
+    border-bottom: none;
+}
+
+.log-time {
+    color: #ff6666;
+    font-weight: 600;
+    min-width: 80px;
+    flex-shrink: 0;
+}
+
+.log-message {
+    flex: 1;
+    word-break: break-word;
+}
+
+.log-entry.info .log-message {
+    color: #fff;
+}
+
+.log-entry.success .log-message {
+    color: #00ff00;
+}
+
+.log-entry.warning .log-message {
+    color: #ffaa00;
+}
+
+.log-entry.error .log-message {
+    color: #ff6666;
+}
+
+/* Text Reveal Animation */
+@keyframes fadeInWord {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.word-reveal {
+    display: inline-block;
+    animation: fadeInWord 0.8s ease forwards;
+}
+
+.word-reveal:nth-child(1) { animation-delay: 0.1s; }
+.word-reveal:nth-child(2) { animation-delay: 0.2s; }
+.word-reveal:nth-child(3) { animation-delay: 0.3s; }
+.word-reveal:nth-child(4) { animation-delay: 0.4s; }
+.word-reveal:nth-child(5) { animation-delay: 0.5s; }
+.word-reveal:nth-child(6) { animation-delay: 0.6s; }
+.word-reveal:nth-child(7) { animation-delay: 0.7s; }
+.word-reveal:nth-child(8) { animation-delay: 0.8s; }
+.word-reveal:nth-child(9) { animation-delay: 0.9s; }
+.word-reveal:nth-child(10) { animation-delay: 1.0s; }
 
 /* Animations */
 @keyframes fadeInDown {

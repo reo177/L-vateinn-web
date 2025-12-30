@@ -61,13 +61,46 @@ class MouseEffects {
     }
     
     updateParallax() {
-        // Parallax effect disabled
-        return;
+        // Subtle parallax effect on sections
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const centerY = rect.top + rect.height / 2;
+            const distance = (this.mouseY - centerY) / window.innerHeight;
+            const parallax = distance * 10;
+            section.style.transform = `translateY(${parallax}px)`;
+        });
     }
     
     createCursorGlow() {
-        // Cursor glow effect disabled
-        return;
+        // Create cursor glow effect
+        const glow = document.createElement('div');
+        glow.className = 'cursor-glow';
+        glow.style.cssText = `
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+        `;
+        document.body.appendChild(glow);
+        
+        document.addEventListener('mousemove', (e) => {
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        });
+        
+        document.addEventListener('mouseenter', () => {
+            glow.style.opacity = '1';
+        });
+        
+        document.addEventListener('mouseleave', () => {
+            glow.style.opacity = '0';
+        });
     }
 }
 
@@ -121,7 +154,11 @@ document.head.appendChild(style);
 document.addEventListener('DOMContentLoaded', () => {
     new ScrollAnimations();
     new MouseEffects();
-    // Text reveal disabled for logo to keep gradient effect
-    // new TextReveal();
+    // Text reveal for section titles (not logo to keep gradient effect)
+    const sectionTitles = document.querySelectorAll('.section-title, .subsection-title');
+    sectionTitles.forEach(title => {
+        const textReveal = new TextReveal();
+        textReveal.splitText(title);
+    });
 });
 
